@@ -1,0 +1,234 @@
+<!doctype html>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<html>
+<head>
+  <title>Test HTML Payroll</title>
+ <link rel="stylesheet" type="text/css" href="design.css">
+</head>
+<body>
+  <div class = "webpage">
+
+    <div class = "header">
+
+      <div class = "headerTitle">
+        <h1>Payroll Solutions</h1>
+      </div>
+
+      <div class = "helpBar">
+        <div class = "tools">
+          Other Tools
+        </div>
+
+        <div class = "videoTutorials">
+          Video Tutorials
+        </div>
+
+        <div class = "help">
+          Help
+        </div>
+      </div>
+    </div>
+
+    <br>
+
+    <div class = "content">
+      <div class = "input">
+        <div class = "inputHeader">
+          <h3>1. User Input</h3>
+        </div>
+
+        <div class = "initInput">
+
+          <div class = "studioNumber">
+            <p> Number of Studios </p>
+            <select id = numberOfStudios>
+              <option value="one">1</option>
+              <option value="two">2</option>
+              <option value="three">3</option>
+              <option value="four">4</option>
+            </select>
+          </div>
+
+          <div class = "inputFile">
+            <div id = payrollInput>
+              <label for="inputfile">Payroll Input File:</label>
+              <input type="file"
+              id="inputfile">
+            </div>
+
+            <br>
+
+            <button type="button" id = "inpSubmitBttn">Load Input File</button>
+          </div>
+
+        </div>
+
+        <div class = "inputPassFail">
+          <img class = "test" id = "check1" src="question.png" alt="Question Mark">
+        </div>
+      </div>
+
+      <div class = "agreementsDisable" id = "agreements">
+        <div class = "agreementsHeader">
+          <h3>2. Agreements (optional)</h3>
+        </div>
+
+        <div class = "agreementInput">
+          <div class="agreeTab">
+            <button class="tablinks" id = "agreeYes">Yes</button>
+            <button class="tablinks" id = "agreeNo">No</button>
+          </div>
+
+          <div id = agreementInput>
+            <label for="agreementfile">Agreement Log Input File:</label>
+            <input type="file"
+            id="agreementfile">
+          </div>
+
+          <br>
+
+          <button type="button" id = "agreeSubmitBttn">Load Agreement File</button>
+
+        </div>
+
+        <div class = "reinputFile">
+
+        </div>
+        <div class = "agreePassFail">
+          <img class = "test" id = "check2" src="question.png" alt="Question Mark">
+        </div>
+      </div>
+
+      <div class = "eventsDisable" id = "events">
+        <div class = "eventsHeader">
+          <h3>3. Booking, Member, Time, Sales</h3>
+        </div>
+
+        <div class = "eventsFiles">
+          <div id = "oneStudioInp" hidden = true>
+
+             <div id = "bel1" hidden = true>
+               <label for="bel1file">Booking Event Log One:</label>
+               <input type="file"
+               id="bel1file">
+             </div>
+
+             <div id = "mem1" hidden = true>
+               <label for="mem1file">Member Log One:</label>
+               <input type="file"
+               id="mem1file">
+             </div>
+
+             <div id = "time1" hidden = true>
+               <label for="time1file">Time Clock Four:</label>
+               <input type="file"
+               id="time1file">
+             </div>
+
+             <br>
+
+           </div>
+
+           <div id = "twoStudioInp" hidden = true>
+
+             <div id = "bel2" hidden = true>
+               <label for="bel2file">Booking Event Log Two:</label>
+               <input type="file"
+               id="bel2file">
+             </div>
+
+             <div id = "mem2" hidden = true>
+               <label for="mem2file">Member Log Two:</label>
+               <input type="file"
+               id="mem2file">
+             </div>
+
+             <div id = "time2" hidden = true>
+               <label for="time2file">Time Clock Four:</label>
+               <input type="file"
+               id="time2file">
+             </div>
+
+             <br>
+
+           </div>
+
+           <div id = "threeStudioInp" hidden = true>
+
+             <div id = "bel3" hidden = true>
+               <label for="bel3file">Booking Event Log Three:</label>
+               <input type="file"
+               id="bel3file">
+             </div>
+
+             <div id = "mem3" hidden = true>
+               <label for="mem3file">Member Log Three:</label>
+               <input type="file"
+               id="mem3file">
+             </div>
+
+             <div id = "time3" hidden = true>
+               <label for="time3file">Time Clock Four:</label>
+               <input type="file"
+               id="time3file">
+             </div>
+
+             <br>
+
+           </div>
+
+           <div id = "fourStudioInp" hidden = true>
+
+             <div id = "bel4" hidden = true>
+               <label for="bel4file">Booking Event Log Four:</label>
+               <input type="file"
+               id="bel4file">
+             </div>
+
+             <div id = "mem4" hidden = true>
+               <label for="mem4file">Member Log Four:</label>
+               <input type="file"
+               id="mem4file">
+             </div>
+
+             <div id = "time4" hidden = true>
+               <label for="time4file">Time Clock Four:</label>
+               <input type="file"
+               id="time4file">
+             </div>
+
+             <br>
+
+           </div>
+
+
+           <div id = "submit" hidden = true>
+             <button type="button" id = "submitBttn">Load Files</button>
+           </div>
+        </div>
+
+        <div class = "eventsPassFail">
+          <img class = "test" id = "check3" src="Question.png" alt="Question Mark">
+        </div>
+      </div>
+
+      <div class = "outputDisable" id = "output">
+        <div class = "outputHeader">
+          <h3>4. Output</h3>
+        </div>
+
+        <div class = "outputSubmit">
+          <div id = "beginPayroll" class = "outputSubmit" >
+            <button type="button" id = "beginBttn">Begin Payroll</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
