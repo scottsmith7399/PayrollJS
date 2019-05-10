@@ -1,0 +1,179 @@
+.header{
+  display: grid;
+  grid-template-columns: 75% 1fr;
+}
+
+.eventsFiles{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.helpBar{
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.content{
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.initInput{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.agreeTab {
+  overflow: hidden;
+  border: 1px solid #ccc;
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+.agreeTab button {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+/* Change background color of buttons on hover */
+.agreeTab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.agreeTab button.active {
+  background-color: #ccc;
+}
+
+img.test{
+  max-width:15%;
+  max-height:15%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+  display: block;
+}
+
+.input{
+  border: 4px solid grey;
+  border-radius: 10px;
+}
+
+.eventsFiles{
+  border: 2px solid grey;
+  margin: 2%
+}
+
+.inputHeader{
+  border: 1px solid grey;
+  border-radius: 10px;
+
+  margin: auto;
+  width: 50%;
+  padding: 2px;
+
+  text-align: center;
+}
+
+.agreementsHeader{
+  border: 1px solid grey;
+  border-radius: 10px;
+
+  margin: auto;
+  width: 50%;
+  padding: 2px;
+
+  text-align: center;
+}
+
+.eventsHeader{
+  border: 1px solid grey;
+  border-radius: 10px;
+
+  margin: auto;
+  width: 50%;
+  padding: 2px;
+
+  text-align: center;
+}
+
+.outputHeader{
+  border: 1px solid grey;
+  border-radius: 10px;
+
+  margin: auto;
+  width: 50%;
+  padding: 2px;
+
+  text-align: center;
+}
+
+.agreementsAble{
+  border: 4px solid grey;
+  border-radius: 10px;
+}
+
+.eventsAble{
+  border: 4px solid grey;
+  border-radius: 10px;
+}
+
+.outputAble{
+  border: 4px solid grey;
+  border-radius: 10px;
+}
+
+.agreementsDisable{
+  border: 4px solid grey;
+  border-radius: 10px;
+
+  background-color: SlateGray;
+  position:relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0.20;
+  -moz-opacity: 20%;
+  -webkit-opacity: 20%;
+  z-index: 2;
+}
+
+.eventsDisable{
+  border: 4px solid grey;
+  border-radius: 10px;
+
+  background-color: SlateGray;
+  position:relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0.20;
+  -moz-opacity: 20%;
+  -webkit-opacity: 20%;
+  z-index: 2;
+}
+
+.outputDisable{
+  border: 4px solid grey;
+  border-radius: 10px;
+
+  background-color: SlateGray;
+  position:relative;
+  width: 100%;
+  height: 100%;
+  opacity: 0.20;
+  -moz-opacity: 20%;
+  -webkit-opacity: 20%;
+  z-index: 2;
+}
+
+.outputSubmit{
+  margin: auto;
+  width: 50%;
+  padding: 10% 0;
+}
