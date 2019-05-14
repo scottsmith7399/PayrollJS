@@ -1,3 +1,38 @@
+inputBttn* {box-sizing: border-box}
+
+/* Set height of body and the document to 100% */
+body, html {
+  height: 100%;
+  margin: 0;
+  font-family: Arial;
+}
+
+/* Style tab links */
+.tablink {
+  background-color: #555;
+  color: white;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  font-size: 17px;
+  width: 25%;
+}
+
+.tablink:hover {
+  background-color: #777;
+}
+
+/* Style the tab content (and add height:100% for full page content) */
+.tabcontent {
+  color: white;
+  display: none;
+  padding: 100px 20px;
+  height: 100%;
+}
+
+
 .header{
   display: grid;
   grid-template-columns: 75% 1fr;
@@ -13,10 +48,10 @@
   grid-template-columns: 1fr 1fr 1fr;
 }
 
-.content{
+/* .content{
   display: grid;
   grid-template-columns: 50% 50%;
-}
+} */
 
 .initInput{
   display: grid;
@@ -176,4 +211,44 @@ img.test{
   margin: auto;
   width: 50%;
   padding: 10% 0;
+}
+
+#inpCheck {
+  visibility: hidden;
+  color: green;
+}
+
+#inpTimes {
+  visibility: hidden;
+  color: red;
+}
+
+#agreeCheck {
+  visibility: hidden;
+  color: green;
+}
+
+#agreeTimes {
+  visibility: hidden;
+  color: red;
+}
+
+#eventCheck {
+  visibility: hidden;
+  color: green;
+}
+
+#eventTimes {
+  visibility: hidden;
+  color: red;
+}
+
+#outCheck {
+  visibility: hidden;
+  color: green;
+}
+
+#outTimes {
+  visibility: hidden;
+  color: red;
 }
