@@ -84,6 +84,7 @@ window.onload = function() {
     }
   }
 
+
   /*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
   /*INPUT FILE GRAB */
 
@@ -238,8 +239,13 @@ window.onload = function() {
     if(classTypes == 3 && questionCount == 11){
       document.getElementById("agreements").className = "agreementsAble";
       document.getElementById("check1").src = "Check.png";
+      document.getElementById("inpTimes").style.visibility = "hidden";
+      document.getElementById("inpCheck").style.visibility = "visible";
+      document.getElementById("agreementBttn").click();
     }else{
       document.getElementById("check1").src = "X.png";
+      document.getElementById("inpCheck").style.visibility = "hidden";
+      document.getElementById("inpTimes").style.visibility = "visible";
     }
 
     console.log("Instructor Pay Table", instructorPayTable)
@@ -272,6 +278,8 @@ window.onload = function() {
   }
 
 
+/////////////////////////////////////////////////////////////////////////////////////////////
+
   document.getElementById("agreeYes").addEventListener("click", agreementsYes);
 
   document.getElementById("agreeNo").addEventListener("click", agreementsNo);
@@ -279,11 +287,16 @@ window.onload = function() {
   function agreementsYes(){
     document.getElementById("events").className = "eventsDisable";
     document.getElementById("check2").src = "X.png";
+    document.getElementById("agreeCheck").style.visibility = "hidden";
+    document.getElementById("agreeTimes").style.visibility = "visible";
   }
 
   function agreementsNo(){
     document.getElementById("events").className = "eventsAble";
     document.getElementById("check2").src = "Check.png";
+    document.getElementById("agreeCheck").style.visibility = "visible";
+    document.getElementById("agreeTimes").style.visibility = "hidden";
+    document.getElementById("eventsBttn").click();
   }
 
 
@@ -345,14 +358,20 @@ window.onload = function() {
             filesWorked = true;
           }else{
             document.getElementById("check3").src = "X.png";
+            document.getElementById("eventCheck").style.visibility = "hidden";
+            document.getElementById("eventTimes").style.visibility = "visible";
             alert("Could not find some Time Clock Files");
           }
         }else{
           document.getElementById("check3").src = "X.png";
+          document.getElementById("eventCheck").style.visibility = "hidden";
+          document.getElementById("eventTimes").style.visibility = "visible";
           alert("Could not find some Member Log Files");
         }
       }else{
         document.getElementById("check3").src = "X.png";
+        document.getElementById("eventCheck").style.visibility = "hidden";
+        document.getElementById("eventTimes").style.visibility = "visible";
         alert("Could not find some Booking Event Log Files");
       }
     }else if(numb == "two"){
@@ -379,14 +398,20 @@ window.onload = function() {
             filesWorked = true;
           }else{
             document.getElementById("check3").src = "X.png";
+            document.getElementById("eventCheck").style.visibility = "hidden";
+            document.getElementById("eventTimes").style.visibility = "visible";
             alert("Could not find some Time Clock Files");
           }
         }else{
           document.getElementById("check3").src = "X.png";
+          document.getElementById("eventCheck").style.visibility = "hidden";
+          document.getElementById("eventTimes").style.visibility = "visible";
           alert("Could not find some Member Log Files");
         }
       }else{
         document.getElementById("check3").src = "X.png";
+        document.getElementById("eventCheck").style.visibility = "hidden";
+        document.getElementById("eventTimes").style.visibility = "visible";
         alert("Could not find some Booking Event Log Files");
       }
     }else if(numb == "three"){
@@ -419,14 +444,20 @@ window.onload = function() {
             filesWorked = true;
           }else{
             document.getElementById("check3").src = "X.png";
+            document.getElementById("eventCheck").style.visibility = "hidden";
+            document.getElementById("eventTimes").style.visibility = "visible";
             alert("Could not find some Time Clock Files");
           }
         }else{
           document.getElementById("check3").src = "X.png";
+          document.getElementById("eventCheck").style.visibility = "hidden";
+          document.getElementById("eventTimes").style.visibility = "visible";
           alert("Could not find some Member Log Files");
         }
       }else{
         document.getElementById("check3").src = "X.png";
+        document.getElementById("eventCheck").style.visibility = "hidden";
+        document.getElementById("eventTimes").style.visibility = "visible";
         alert("Could not find some Booking Event Log Files");
       }
     }else if(numb == "four"){
@@ -466,20 +497,29 @@ window.onload = function() {
             filesWorked = true;
           }else{
             document.getElementById("check3").src = "X.png";
+            document.getElementById("eventCheck").style.visibility = "hidden";
+            document.getElementById("eventTimes").style.visibility = "visible";
             alert("Could not find some Time Clock Files");
           }
         }else{
           document.getElementById("check3").src = "X.png";
+          document.getElementById("eventCheck").style.visibility = "hidden";
+          document.getElementById("eventTimes").style.visibility = "visible";
           alert("Could not find some Member Log Files");
         }
       }else{
         document.getElementById("check3").src = "X.png";
+        document.getElementById("eventCheck").style.visibility = "hidden";
+        document.getElementById("eventTimes").style.visibility = "visible";
         alert("Could not find some Booking Event Log Files");
       }
     }
     if(filesWorked){
+      document.getElementById("eventCheck").style.visibility = "visible";
+      document.getElementById("eventTimes").style.visibility = "hidden";
       document.getElementById("output").className = "outputAble";
       document.getElementById("check3").src = "Check.png";
+      document.getElementById("outputBttn").click();
     }
   }
 
@@ -1194,16 +1234,16 @@ function createExcelArray(){
         if(organizedTable[x][0].includes("CP")){
           groupClassCount++;
           groupPayTotal += parseFloat(organizedTable[x][6]);
-          array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], "$" + organizedTable[x][6] ]);
+          array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
-          indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], "$" + organizedTable[x][6] ]);
+          indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
         }
       }
     }
-    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", groupClassCount, "$" + groupPayTotal]);
+    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", groupClassCount, groupPayTotal]);
 
-    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", groupClassCount, "$" + groupPayTotal]);
+    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", groupClassCount, groupPayTotal]);
 
     array.push([]);
     array.push(["Private Classes"]);
@@ -1220,16 +1260,16 @@ function createExcelArray(){
         if(organizedTable[x][0].includes("Private") && !(organizedTable[x][0].includes("Semi"))){
           privateClassCount++;
           privatePayTotal += parseFloat(organizedTable[x][6]);
-          array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], "$" + organizedTable[x][6] ]);
+          array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
-          indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], "$" + organizedTable[x][6] ]);
+          indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5],  organizedTable[x][6] ]);
 
         }
       }
     }
-    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", privateClassCount, "$" + privatePayTotal]);
+    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", privateClassCount, privatePayTotal]);
 
-    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", privateClassCount, "$" + privatePayTotal]);
+    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", privateClassCount, privatePayTotal]);
 
     array.push([]);
     array.push(["Semi-Private Classes"]);
@@ -1246,16 +1286,16 @@ function createExcelArray(){
         if(organizedTable[x][0].includes("Semi-Private")){
           semiClassCount++;
           semiPayTotal += parseFloat(organizedTable[x][6]);
-          array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], "$" +organizedTable[x][6] ]);
+          array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5],organizedTable[x][6] ]);
 
-          indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], "$" +organizedTable[x][6] ]);
+          indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
         }
       }
     }
-    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", semiClassCount, "$" + semiPayTotal]);
+    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", semiClassCount, semiPayTotal]);
 
-    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", semiClassCount, "$" + semiPayTotal]);
+    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", semiClassCount, semiPayTotal]);
 
     array.push([]);
     array.push(["Intro Classes"]);
@@ -1273,24 +1313,24 @@ function createExcelArray(){
           introClassCount++;
           introPayTotal += parseFloat(organizedTable[x][6]);
           if(!introPayOnSignUps){
-            array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], "$" + organizedTable[x][6] ]);
+            array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
-            indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], "$" + organizedTable[x][6] ]);
+            indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5],  organizedTable[x][6] ]);
 
           }else{
-            array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], "(" + organizedTable[x][7] + "/" + organizedTable[x][5] + ")" , "$" + organizedTable[x][6] ]);
+            array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], "(" + organizedTable[x][7] + "/" + organizedTable[x][5] + ")" ,  organizedTable[x][6] ]);
 
-            indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], "(" + organizedTable[x][7] + "/" + organizedTable[x][5] + ")" , "$" + organizedTable[x][6] ]);
+            indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], "(" + organizedTable[x][7] + "/" + organizedTable[x][5] + ")" ,  organizedTable[x][6] ]);
 
           }
         }
       }
     }
 
-    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", introClassCount, "$" + introPayTotal]);
+    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", introClassCount, introPayTotal]);
     array.push([]);
 
-    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", introClassCount, "$" + introPayTotal]);
+    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", introClassCount, introPayTotal]);
     indInsArr[indCount].push([]);
 
 
@@ -1319,10 +1359,10 @@ function createExcelArray(){
     instructorPay = groupPayTotal + privatePayTotal + semiPayTotal + introPayTotal + timePayTotal;
 
     array.push([]);
-    array.push([instructorArray[i] + " Totals", "(Number of Classes-Total Pay)", "", "", instructorClasses, "$" + instructorPay])
+    array.push([instructorArray[i] + " Totals", "(Number of Classes-Total Pay)", "", "", instructorClasses, instructorPay])
 
     indInsArr[indCount].push([]);
-    indInsArr[indCount].push([instructorArray[i] + " Totals", "(Number of Classes-Total Pay)", "", "", instructorClasses, "$" + instructorPay])
+    indInsArr[indCount].push([instructorArray[i] + " Totals", "(Number of Classes-Total Pay)", "", "", instructorClasses, instructorPay])
 
     array.push([]);
     array.push([]);
@@ -1333,7 +1373,7 @@ function createExcelArray(){
 
   if(outputOverall){
     array.push(["Overall Totals"]);
-    array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+    array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
     for(var a = 0; a < overallTotal.length; a++){
       array.push(overallTotal[a]);
     }
@@ -1346,7 +1386,7 @@ function createExcelArray(){
 
   if(outputByStudio && studiosArray.length > 1){
     array.push([totalsByStudio[0][totalsByStudio[0].length-1]]);
-    array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+    array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
     for(var b = 0; b < totalsByStudio.length; b++){
       var insertionTotalsArray = [];
       for(var w = 0; w < totalsByStudio[b].length-1; w ++){
@@ -1358,7 +1398,7 @@ function createExcelArray(){
         array.push(totalTotals[totalsTracker]);
         array.push([]);
         array.push([totalsByStudio[b][studioNameIndex]]);
-        array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+        array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
         totalsTracker += 1;
       }
     }
@@ -1366,6 +1406,7 @@ function createExcelArray(){
   }
   return array;
 }
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
