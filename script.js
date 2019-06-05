@@ -1,18 +1,24 @@
-// import * as from xlsx.full.min.js;
-// import * from FileSaver.min.js;
-// var imported1 = document.createElement('script');
-// imported1.src = 'FileSaver.min.js';
-// document.head.appendChild(imported1);
-//
-// var imported = document.createElement('script');
-// imported.src = 'xlsx.full.min.js';
-// document.head.appendChild(imported);
-/*/////////////////////////////////////////////////////////////////////////////////////////////////////////////////*/
-/*STUDIO COUNTER - HTML MANIPULATION*/
 
 /*Adds listener to dropdown box and calls displayStudioInpBox function*/
 window.onload = function() {
   document.getElementById("numberOfStudios").addEventListener("click", displayStudioInputFileBoxes);
+
+  document.getElementById("numberOfStudios").click();
+
+  /*Chronological answers to all the excel input questions*/
+  var payOnClassSize = false;
+  var introPayOnSignUps = false;
+  var pastButNotLoggedPay = false;
+  var noShowPay = false;
+  var cancelledWithinRulesPay = false;
+  var cancelledByAdminPay = false;
+  var cancelledOutsidePolicyPay = false;
+  var includeTimeClock = false;
+  var basePayRate = 0;
+  var outputByStudio = false;
+  var outputOverall = false;
+  var ptaPay = "";
+
 
   /*Displays or unhides __ number of file inputs based on dropdown box*/
   function displayStudioInputFileBoxes() {
@@ -27,61 +33,147 @@ window.onload = function() {
       document.getElementById("bel3").hidden = true;
       document.getElementById("bel4").hidden = true;
 
-      document.getElementById("mem1").hidden = false;
-      document.getElementById("mem2").hidden = true;
-      document.getElementById("mem3").hidden = true;
-      document.getElementById("mem4").hidden = true;
+      if(introPayOnSignUps){
+        document.getElementById("mem1").hidden = false;
+        document.getElementById("mem2").hidden = true;
+        document.getElementById("mem3").hidden = true;
+        document.getElementById("mem4").hidden = true;
+      }
 
-      document.getElementById("time1").hidden = false;
-      document.getElementById("time2").hidden = true;
-      document.getElementById("time3").hidden = true;
-      document.getElementById("time4").hidden = true;
+      if(includeTimeClock){
+        document.getElementById("time1").hidden = false;
+        document.getElementById("time2").hidden = true;
+        document.getElementById("time3").hidden = true;
+        document.getElementById("time4").hidden = true;
+      }
     }else if(document.getElementById("numberOfStudios").value == "two"){
       document.getElementById("bel1").hidden = false;
       document.getElementById("bel2").hidden = false;
       document.getElementById("bel3").hidden = true;
       document.getElementById("bel4").hidden = true;
 
-      document.getElementById("mem1").hidden = false;
-      document.getElementById("mem2").hidden = false;
-      document.getElementById("mem3").hidden = true;
-      document.getElementById("mem4").hidden = true;
+      if(introPayOnSignUps){
+        document.getElementById("mem1").hidden = false;
+        document.getElementById("mem2").hidden = false;
+        document.getElementById("mem3").hidden = true;
+        document.getElementById("mem4").hidden = true;
+      }
 
-      document.getElementById("time1").hidden = false;
-      document.getElementById("time2").hidden = false;
-      document.getElementById("time3").hidden = true;
-      document.getElementById("time4").hidden = true;
+      if(includeTimeClock){
+        document.getElementById("time1").hidden = false;
+        document.getElementById("time2").hidden = false;
+        document.getElementById("time3").hidden = true;
+        document.getElementById("time4").hidden = true;
+      }
     }else if(document.getElementById("numberOfStudios").value == "three"){
       document.getElementById("bel1").hidden = false;
       document.getElementById("bel2").hidden = false;
       document.getElementById("bel3").hidden = false;
       document.getElementById("bel4").hidden = true;
 
-      document.getElementById("mem1").hidden = false;
-      document.getElementById("mem2").hidden = false;
-      document.getElementById("mem3").hidden = false;
-      document.getElementById("mem4").hidden = true;
+      if(introPayOnSignUps){
+        document.getElementById("mem1").hidden = false;
+        document.getElementById("mem2").hidden = false;
+        document.getElementById("mem3").hidden = false;
+        document.getElementById("mem4").hidden = true;
+      }
 
-      document.getElementById("time1").hidden = false;
-      document.getElementById("time2").hidden = false;
-      document.getElementById("time3").hidden = false;
-      document.getElementById("time4").hidden = true;
+      if(includeTimeClock){
+        document.getElementById("time1").hidden = false;
+        document.getElementById("time2").hidden = false;
+        document.getElementById("time3").hidden = false;
+        document.getElementById("time4").hidden = true;
+      }
     }else if(document.getElementById("numberOfStudios").value == "four"){
       document.getElementById("bel1").hidden = false;
       document.getElementById("bel2").hidden = false;
       document.getElementById("bel3").hidden = false;
       document.getElementById("bel4").hidden = false;
 
-      document.getElementById("mem1").hidden = false;
-      document.getElementById("mem2").hidden = false;
-      document.getElementById("mem3").hidden = false;
-      document.getElementById("mem4").hidden = false;
+      if(introPayOnSignUps){
+        document.getElementById("mem1").hidden = false;
+        document.getElementById("mem2").hidden = false;
+        document.getElementById("mem3").hidden = false;
+        document.getElementById("mem4").hidden = false;
+      }
 
-      document.getElementById("time1").hidden = false;
-      document.getElementById("time2").hidden = false;
-      document.getElementById("time3").hidden = false;
-      document.getElementById("time4").hidden = false;
+      if(includeTimeClock){
+        document.getElementById("time1").hidden = false;
+        document.getElementById("time2").hidden = false;
+        document.getElementById("time3").hidden = false;
+        document.getElementById("time4").hidden = false;
+      }
     }
+  }
+
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+  document.getElementById("inputBttn").addEventListener("click", openInput);
+  // document.getElementById("eventsOnBttn").addEventListener("click", openEvents);
+  //
+  // document.getElementById("outputOnBttn").addEventListener("click", openOutput);
+
+  document.getElementById("inputBttn").click();
+
+  function openInput(){
+    document.getElementById("agreements").style.display = "none";
+    document.getElementById("events").style.display = "none";
+    document.getElementById("output").style.display = "none";
+
+    document.getElementById("input").style.display = "block";
+
+    var tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+    }
+
+    document.getElementById("inputBttn").style.backgroundColor = "#333";
+  }
+
+  function openAgreements(){
+    document.getElementById("input").style.display = "none";
+    document.getElementById("events").style.display = "none";
+    document.getElementById("output").style.display = "none";
+
+    document.getElementById("agreements").style.display = "block";
+
+    var tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+    }
+
+    document.getElementById("agreementOnBttn").style.backgroundColor = "#333";
+  }
+
+  function openEvents(){
+    document.getElementById("input").style.display = "none";
+    document.getElementById("agreements").style.display = "none";
+    document.getElementById("output").style.display = "none";
+
+    document.getElementById("events").style.display = "block";
+
+    var tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+    }
+
+    document.getElementById("eventsOnBttn").style.backgroundColor = "#333";
+  }
+
+  function openOutput(){
+    document.getElementById("input").style.display = "none";
+    document.getElementById("agreements").style.display = "none";
+    document.getElementById("events").style.display = "none";
+
+    document.getElementById("output").style.display = "block";
+
+    var tablinks = document.getElementsByClassName("tablink");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].style.backgroundColor = "";
+    }
+
+    document.getElementById("outputOnBttn").style.backgroundColor = "#333";
   }
 
 
@@ -90,19 +182,6 @@ window.onload = function() {
 
   /*All instructors information (name, studio, pay) grabbed from input file*/
   var instructorPayTable = []
-
-  /*Chronological answers to all the excel input questions*/
-  var payOnClassSize = false;
-  var introPayOnSignUps = false;
-  var pastButNotLoggedPay = false;
-  var noShowPay = false;
-  var cancelledWithinRulesPay = false;
-  var cancelledByAdminPay = false;
-  var cancelledOutsidePolicyPay = false;
-  var basePayRate = 0;
-  var outputByStudio = false;
-  var outputOverall = false;
-  var ptaPay = "";
 
   /*Adds listener to input submit button and calls  function*/
   document.getElementById("inpSubmitBttn").addEventListener("click", submitInput);
@@ -138,6 +217,7 @@ window.onload = function() {
       if(!question){
         if(json[i][0] != "Location" && json[i][0] != "Questions" && json[i][0] != null && json[i][0] != ""){
           /*belTable.push([]);*/
+          json[i][0] = json[i][0].replace("Club Pilates ", "");
           instructorPayTable[inpTableCounter] = json[i];
           inpTableCounter = inpTableCounter + 1;
         }else if(json[i][0].includes("Questions")){
@@ -210,25 +290,32 @@ window.onload = function() {
       }else if(json[i][0].includes("(8)")){
         questionCount += 1;
         if(json[i][1].toUpperCase() == "TRUE"){
+          includeTimeClock = true;
+        }else{
+          includeTimeClock = false;
+        }
+      }else if(json[i][0].includes("(9)")){
+        questionCount += 1;
+        if(json[i][1].toUpperCase() == "TRUE"){
           basePayRate = true;
         }else{
           basePayRate = false;
         }
-      }else if(json[i][0].includes("(9)")){
+      }else if(json[i][0].includes("(10)")){
         questionCount += 1;
         if(json[i][1].toUpperCase() == "TRUE"){
           outputByStudio = true;
         }else{
           outputByStudio = false;
         }
-      }else if(json[i][0].includes("(10)")){
+      }else if(json[i][0].includes("(11)")){
         questionCount += 1;
         if(json[i][1].toUpperCase() == "TRUE"){
           outputOverall = true;
         }else{
           outputOverall = false;
         }
-      }else if(json[i][0].includes("(11)")){
+      }else if(json[i][0].includes("(12)")){
         questionCount += 1;
         ptaPay = json[i][1];
       }
@@ -236,16 +323,37 @@ window.onload = function() {
     createInstructorList();
     createStudioList();
 
-    if(classTypes == 3 && questionCount == 11){
-      document.getElementById("agreements").className = "agreementsAble";
+    if(classTypes == 3 && questionCount == 12){
       document.getElementById("check1").src = "Check.png";
       document.getElementById("inpTimes").style.visibility = "hidden";
       document.getElementById("inpCheck").style.visibility = "visible";
-      document.getElementById("agreementBttn").click();
+      document.getElementById("agreementOffBttn").id = "agreementOnBttn";
+      document.getElementById("agreementOnBttn").addEventListener("click", openAgreements);
+
     }else{
       document.getElementById("check1").src = "X.png";
       document.getElementById("inpCheck").style.visibility = "hidden";
       document.getElementById("inpTimes").style.visibility = "visible";
+
+      //Deleting all further button event listeners and making them unclickable and grey-ed out
+      try{
+        document.getElementById("agreementOnBttn").id = "agreementOffBttn";
+        document.getElementById("agreementOffBttn").removeEventListener("click", openAgreements);
+        document.getElementById("eventsOnBttn").id = "eventsOffBttn";
+        document.getElementById("eventsOffBttn").removeEventListener("click", openEvents);
+        document.getElementById("outputOnBttn").id = "outputOffBttn";
+        document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+
+        document.getElementById("agreeCheck").style.visibility = "hidden";
+        document.getElementById("agreeTimes").style.visibility = "hidden";
+        document.getElementById("eventCheck").style.visibility = "hidden";
+        document.getElementById("eventTimes").style.visibility = "hidden";
+        document.getElementById("outputCheck").style.visibility = "hidden";
+        document.getElementById("outputTimes").style.visibility = "hidden";
+      }catch(err){
+
+      }
+      alert("Input File Incorrect: Please review input file format");
     }
 
     console.log("Instructor Pay Table", instructorPayTable)
@@ -285,18 +393,34 @@ window.onload = function() {
   document.getElementById("agreeNo").addEventListener("click", agreementsNo);
 
   function agreementsYes(){
-    document.getElementById("events").className = "eventsDisable";
     document.getElementById("check2").src = "X.png";
     document.getElementById("agreeCheck").style.visibility = "hidden";
     document.getElementById("agreeTimes").style.visibility = "visible";
+
+    //Deletes all event listeners for right buttons and makes them grey-ed out
+    try{
+      document.getElementById("eventsOnBttn").id = "eventsOffBttn";
+      document.getElementById("eventsOffBttn").removeEventListener("click", openEvents);
+      document.getElementById("outputOnBttn").id = "outputOffBttn";
+      document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+
+      document.getElementById("eventCheck").style.visibility = "hidden";
+      document.getElementById("eventTimes").style.visibility = "hidden";
+      document.getElementById("outputCheck").style.visibility = "hidden";
+      document.getElementById("outputTimes").style.visibility = "hidden";
+    }catch(err){
+
+    }
+    alert("Agreements input is still a work in progress. Expect a few more months before this function is working. Please click NO");
   }
 
   function agreementsNo(){
-    document.getElementById("events").className = "eventsAble";
+    displayStudioInputFileBoxes();
     document.getElementById("check2").src = "Check.png";
     document.getElementById("agreeCheck").style.visibility = "visible";
     document.getElementById("agreeTimes").style.visibility = "hidden";
-    document.getElementById("eventsBttn").click();
+    document.getElementById("eventsOffBttn").id = "eventsOnBttn";
+    document.getElementById("eventsOnBttn").addEventListener("click", openEvents);
   }
 
 
@@ -336,190 +460,303 @@ window.onload = function() {
     /*Resets previous Member Log Matrix (so no continued add on of events)*/
     memTable = [];
 
-    var filesWorked = false;
+    var filesWorked = true;
 
     /*Grabs dropdown box to find number of studios and calls grabData accordingly for each studio Booking Event Log File*/
     var numb = document.getElementById("numberOfStudios").value;
+
     if(numb == "one"){
       /*Check if Booking Event Log file is submitted*/
       if(document.getElementById("bel1file").value.includes(".")){
-        if(document.getElementById("mem1file").value.includes(".")){
-          if(document.getElementById("time1file").value.includes(".")){
-            memfiles[0] = document.getElementById("mem1file").value.substring(12);
-            grabData(document.getElementById("mem1file").value.substring(12), "MEM");
+        belfiles[0] = document.getElementById("bel1file").value.substring(12);
+        grabData(document.getElementById("bel1file").value.substring(12), "BEL");
 
-            belfiles[0] = document.getElementById("bel1file").value.substring(12);
-            grabData(document.getElementById("bel1file").value.substring(12), "BEL");
+        if(introPayOnSignUps == true && document.getElementById("mem1file").value.includes(".")){
+          memfiles[0] = document.getElementById("mem1file").value.substring(12);
+          grabData(document.getElementById("mem1file").value.substring(12), "MEM");
 
-            timeFiles[0] = document.getElementById("time1file").value.substring(12);
-            grabData(document.getElementById("time1file").value.substring(12), "TIME");
-
-            document.getElementById("beginPayroll").hidden = false;
-            filesWorked = true;
-          }else{
-            document.getElementById("check3").src = "X.png";
-            document.getElementById("eventCheck").style.visibility = "hidden";
-            document.getElementById("eventTimes").style.visibility = "visible";
-            alert("Could not find some Time Clock Files");
-          }
+        }else if(introPayOnSignUps == false){
+          //Do nothing
         }else{
+          filesWorked = false;
           document.getElementById("check3").src = "X.png";
           document.getElementById("eventCheck").style.visibility = "hidden";
           document.getElementById("eventTimes").style.visibility = "visible";
+          try{
+            document.getElementById("outputOnBttn").id = "outputOffBttn";
+            document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+            document.getElementById("outputCheck").style.visibility = "hidden";
+            document.getElementById("outputTimes").style.visibility = "hidden";
+          }catch(err){}
+
           alert("Could not find some Member Log Files");
         }
+
+        if(includeTimeClock == true && document.getElementById("time1file").value.includes(".")){
+          timeFiles[0] = document.getElementById("time1file").value.substring(12);
+          grabData(document.getElementById("time1file").value.substring(12), "TIME");
+
+        }else if(includeTimeClock == false){
+          //Do nothing
+        }else{
+          filesWorked = false;
+          document.getElementById("check3").src = "X.png";
+          document.getElementById("eventCheck").style.visibility = "hidden";
+          document.getElementById("eventTimes").style.visibility = "visible";
+          try{
+            document.getElementById("outputOnBttn").id = "outputOffBttn";
+            document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+            document.getElementById("outputCheck").style.visibility = "hidden";
+            document.getElementById("outputTimes").style.visibility = "hidden";
+          }catch(err){}
+
+          alert("Could not find some Time Clock Files");
+        }
+
       }else{
+        filesWorked = false;
         document.getElementById("check3").src = "X.png";
         document.getElementById("eventCheck").style.visibility = "hidden";
         document.getElementById("eventTimes").style.visibility = "visible";
+        try{
+          document.getElementById("outputOnBttn").id = "outputOffBttn";
+          document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+          document.getElementById("outputCheck").style.visibility = "hidden";
+          document.getElementById("outputTimes").style.visibility = "hidden";
+        }catch(err){}
+
         alert("Could not find some Booking Event Log Files");
       }
     }else if(numb == "two"){
       /*Check if Booking Event Log files are submitted*/
       if(document.getElementById("bel1file").value.includes(".") && document.getElementById("bel2file").value.includes(".")){
-        if(document.getElementById("mem1file").value.includes(".") && document.getElementById("mem2file").value.includes(".")){
-          if(document.getElementById("time1file").value.includes(".") && document.getElementById("time2file").value.includes(".")){
-            memfiles[0] = document.getElementById("mem1file").value.substring(12);
-            grabData(document.getElementById("mem1file").value.substring(12), "MEM");
-            memfiles[1] = document.getElementById("mem2file").value.substring(12);
-            grabData(document.getElementById("mem2file").value.substring(12), "MEM");
+        belfiles[0] = document.getElementById("bel1file").value.substring(12);
+        grabData(document.getElementById("bel1file").value.substring(12), "BEL");
+        belfiles[1] = document.getElementById("bel2file").value.substring(12);
+        grabData(document.getElementById("bel2file").value.substring(12), "BEL");
 
-            belfiles[0] = document.getElementById("bel1file").value.substring(12);
-            grabData(document.getElementById("bel1file").value.substring(12), "BEL");
-            belfiles[1] = document.getElementById("bel2file").value.substring(12);
-            grabData(document.getElementById("bel2file").value.substring(12), "BEL");
+        if(introPayOnSignUps == true && document.getElementById("mem1file").value.includes(".") && document.getElementById("mem2file").value.includes(".")){
+          memfiles[0] = document.getElementById("mem1file").value.substring(12);
+          grabData(document.getElementById("mem1file").value.substring(12), "MEM");
+          memfiles[1] = document.getElementById("mem2file").value.substring(12);
+          grabData(document.getElementById("mem2file").value.substring(12), "MEM");
 
-            timeFiles[0] = document.getElementById("time1file").value.substring(12);
-            grabData(document.getElementById("time1file").value.substring(12), "TIME");
-            timeFiles[1] = document.getElementById("time2file").value.substring(12);
-            grabData(document.getElementById("time2file").value.substring(12), "TIME");
-
-            document.getElementById("beginPayroll").hidden = false;
-            filesWorked = true;
-          }else{
-            document.getElementById("check3").src = "X.png";
-            document.getElementById("eventCheck").style.visibility = "hidden";
-            document.getElementById("eventTimes").style.visibility = "visible";
-            alert("Could not find some Time Clock Files");
-          }
+        }else if(introPayOnSignUps == false){
+          //Do nothing
         }else{
+          filesWorked = false;
           document.getElementById("check3").src = "X.png";
           document.getElementById("eventCheck").style.visibility = "hidden";
           document.getElementById("eventTimes").style.visibility = "visible";
+          try{
+            document.getElementById("outputOnBttn").id = "outputOffBttn";
+            document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+            document.getElementById("outputCheck").style.visibility = "hidden";
+            document.getElementById("outputTimes").style.visibility = "hidden";
+          }catch(err){}
+
           alert("Could not find some Member Log Files");
         }
+
+        if(includeTimeClock == true && document.getElementById("time1file").value.includes(".") && document.getElementById("time2file").value.includes(".")){
+          timeFiles[0] = document.getElementById("time1file").value.substring(12);
+          grabData(document.getElementById("time1file").value.substring(12), "TIME");
+          timeFiles[1] = document.getElementById("time2file").value.substring(12);
+          grabData(document.getElementById("time2file").value.substring(12), "TIME");
+
+        }else if(includeTimeClock == false){
+          //Do nothing
+        }else{
+          filesWorked = false;
+          document.getElementById("check3").src = "X.png";
+          document.getElementById("eventCheck").style.visibility = "hidden";
+          document.getElementById("eventTimes").style.visibility = "visible";
+          try{
+            document.getElementById("outputOnBttn").id = "outputOffBttn";
+            document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+            document.getElementById("outputCheck").style.visibility = "hidden";
+            document.getElementById("outputTimes").style.visibility = "hidden";
+          }catch(err){}
+
+          alert("Could not find some Time Clock Files");
+        }
+
       }else{
+        filesWorked = false;
         document.getElementById("check3").src = "X.png";
         document.getElementById("eventCheck").style.visibility = "hidden";
         document.getElementById("eventTimes").style.visibility = "visible";
+        try{
+          document.getElementById("outputOnBttn").id = "outputOffBttn";
+          document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+          document.getElementById("outputCheck").style.visibility = "hidden";
+          document.getElementById("outputTimes").style.visibility = "hidden";
+        }catch(err){}
+
         alert("Could not find some Booking Event Log Files");
       }
     }else if(numb == "three"){
       /*Check if Booking Event Log files are submitted*/
       if(document.getElementById("bel1file").value.includes(".") && document.getElementById("bel2file").value.includes(".") && document.getElementById("bel3file").value.includes(".")){
-        if(document.getElementById("mem1file").value.includes(".") && document.getElementById("mem2file").value.includes(".") && document.getElementById("mem3file").value.includes(".")){
-          if(document.getElementById("time1file").value.includes(".") && document.getElementById("time2file").value.includes(".") && document.getElementById("time3file").value.includes(".")){
-            memfiles[0] = document.getElementById("mem1file").value.substring(12);
-            grabData(document.getElementById("mem1file").value.substring(12), "MEM");
-            memfiles[1] = document.getElementById("mem2file").value.substring(12);
-            grabData(document.getElementById("mem2file").value.substring(12), "MEM");
-            memfiles[2] = document.getElementById("mem3file").value.substring(12);
-            grabData(document.getElementById("mem3file").value.substring(12), "MEM");
+        belfiles[0] = document.getElementById("bel1file").value.substring(12);
+        grabData(document.getElementById("bel1file").value.substring(12), "BEL");
+        belfiles[1] = document.getElementById("bel2file").value.substring(12);
+        grabData(document.getElementById("bel2file").value.substring(12), "BEL");
+        belfiles[2] = document.getElementById("bel3file").value.substring(12);
+        grabData(document.getElementById("bel3file").value.substring(12), "BEL");
 
-            belfiles[0] = document.getElementById("bel1file").value.substring(12);
-            grabData(document.getElementById("bel1file").value.substring(12), "BEL");
-            belfiles[1] = document.getElementById("bel2file").value.substring(12);
-            grabData(document.getElementById("bel2file").value.substring(12), "BEL");
-            belfiles[2] = document.getElementById("bel3file").value.substring(12);
-            grabData(document.getElementById("bel3file").value.substring(12), "BEL");
+        if(introPayOnSignUps == true && document.getElementById("mem1file").value.includes(".") && document.getElementById("mem2file").value.includes(".") && document.getElementById("mem3file").value.includes(".")){
+          memfiles[0] = document.getElementById("mem1file").value.substring(12);
+          grabData(document.getElementById("mem1file").value.substring(12), "MEM");
+          memfiles[1] = document.getElementById("mem2file").value.substring(12);
+          grabData(document.getElementById("mem2file").value.substring(12), "MEM");
+          memfiles[2] = document.getElementById("mem3file").value.substring(12);
+          grabData(document.getElementById("mem3file").value.substring(12), "MEM");
 
-            timeFiles[0] = document.getElementById("time1file").value.substring(12);
-            grabData(document.getElementById("time1file").value.substring(12), "TIME");
-            timeFiles[1] = document.getElementById("time2file").value.substring(12);
-            grabData(document.getElementById("time2file").value.substring(12), "TIME");
-            timeFiles[2] = document.getElementById("time3file").value.substring(12);
-            grabData(document.getElementById("time3file").value.substring(12), "TIME");
-
-            document.getElementById("beginPayroll").hidden = false;
-            filesWorked = true;
-          }else{
-            document.getElementById("check3").src = "X.png";
-            document.getElementById("eventCheck").style.visibility = "hidden";
-            document.getElementById("eventTimes").style.visibility = "visible";
-            alert("Could not find some Time Clock Files");
-          }
+        }else if(introPayOnSignUps == false){
+          //Do nothing
         }else{
+          filesWorked = false;
           document.getElementById("check3").src = "X.png";
           document.getElementById("eventCheck").style.visibility = "hidden";
           document.getElementById("eventTimes").style.visibility = "visible";
+          try{
+            document.getElementById("outputOnBttn").id = "outputOffBttn";
+            document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+            document.getElementById("outputCheck").style.visibility = "hidden";
+            document.getElementById("outputTimes").style.visibility = "hidden";
+          }catch(err){}
+
           alert("Could not find some Member Log Files");
         }
+
+        if(includeTimeClock == true && document.getElementById("time1file").value.includes(".") && document.getElementById("time2file").value.includes(".") && document.getElementById("time3file").value.includes(".")){
+          timeFiles[0] = document.getElementById("time1file").value.substring(12);
+          grabData(document.getElementById("time1file").value.substring(12), "TIME");
+          timeFiles[1] = document.getElementById("time2file").value.substring(12);
+          grabData(document.getElementById("time2file").value.substring(12), "TIME");
+          timeFiles[2] = document.getElementById("time3file").value.substring(12);
+          grabData(document.getElementById("time3file").value.substring(12), "TIME");
+
+        }else if(includeTimeClock == false){
+          //Do nothing
+        }else{
+          filesWorked = false;
+          document.getElementById("check3").src = "X.png";
+          document.getElementById("eventCheck").style.visibility = "hidden";
+          document.getElementById("eventTimes").style.visibility = "visible";
+          try{
+            document.getElementById("outputOnBttn").id = "outputOffBttn";
+            document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+            document.getElementById("outputCheck").style.visibility = "hidden";
+            document.getElementById("outputTimes").style.visibility = "hidden";
+          }catch(err){}
+
+          alert("Could not find some Time Clock Files");
+        }
+
       }else{
+        filesWorked = false;
         document.getElementById("check3").src = "X.png";
         document.getElementById("eventCheck").style.visibility = "hidden";
         document.getElementById("eventTimes").style.visibility = "visible";
+        try{
+          document.getElementById("outputOnBttn").id = "outputOffBttn";
+          document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+          document.getElementById("outputCheck").style.visibility = "hidden";
+          document.getElementById("outputTimes").style.visibility = "hidden";
+        }catch(err){}
+
         alert("Could not find some Booking Event Log Files");
       }
     }else if(numb == "four"){
       /*Check if Booking Event Log files are submitted*/
       if(document.getElementById("bel1file").value.includes(".") && document.getElementById("bel2file").value.includes(".") && document.getElementById("bel3file").value.includes(".") && document.getElementById("bel4files").value.includes(".")){
-        if(document.getElementById("mem1file").value.includes(".") && document.getElementById("mem2file").value.includes(".") && document.getElementById("mem3file").value.includes(".") && document.getElementById("mem4files").value.includes(".")){
-          if(document.getElementById("time1file").value.includes(".") && document.getElementById("time2file").value.includes(".") && document.getElementById("time3file").value.includes(".") && document.getElementById("time4files").value.includes(".")){
-            memfiles[0] = document.getElementById("mem1file").value.substring(12);
-            grabData(document.getElementById("mem1file").value.substring(12), "MEM");
-            memfiles[1] = document.getElementById("mem2file").value.substring(12);
-            grabData(document.getElementById("mem2file").value.substring(12), "MEM");
-            memfiles[2] = document.getElementById("mem3file").value.substring(12);
-            grabData(document.getElementById("mem3file").value.substring(12), "MEM");
-            memfiles[3] = document.getElementById("mem4file").value.substring(12);
-            grabData(document.getElementById("mem4file").value.substring(12), "MEM");
+        belfiles[0] = document.getElementById("bel1file").value.substring(12);
+        grabData(document.getElementById("bel1file").value.substring(12), "BEL");
+        belfiles[1] = document.getElementById("bel2file").value.substring(12);
+        grabData(document.getElementById("bel2file").value.substring(12), "BEL");
+        belfiles[2] = document.getElementById("bel3file").value.substring(12);
+        grabData(document.getElementById("bel3file").value.substring(12), "BEL");
+        belfiles[3] = document.getElementById("bel4file").value.substring(12);
+        grabData(document.getElementById("bel4file").value.substring(12), "BEL");
 
-            belfiles[0] = document.getElementById("bel1file").value.substring(12);
-            grabData(document.getElementById("bel1file").value.substring(12), "BEL");
-            belfiles[1] = document.getElementById("bel2file").value.substring(12);
-            grabData(document.getElementById("bel2file").value.substring(12), "BEL");
-            belfiles[2] = document.getElementById("bel3file").value.substring(12);
-            grabData(document.getElementById("bel3file").value.substring(12), "BEL");
-            belfiles[3] = document.getElementById("bel4file").value.substring(12);
-            grabData(document.getElementById("bel4file").value.substring(12), "BEL");
+        if(introPayOnSignUps == true && document.getElementById("mem1file").value.includes(".") && document.getElementById("mem2file").value.includes(".") && document.getElementById("mem3file").value.includes(".") && document.getElementById("mem4files").value.includes(".")){
+          memfiles[0] = document.getElementById("mem1file").value.substring(12);
+          grabData(document.getElementById("mem1file").value.substring(12), "MEM");
+          memfiles[1] = document.getElementById("mem2file").value.substring(12);
+          grabData(document.getElementById("mem2file").value.substring(12), "MEM");
+          memfiles[2] = document.getElementById("mem3file").value.substring(12);
+          grabData(document.getElementById("mem3file").value.substring(12), "MEM");
+          memfiles[3] = document.getElementById("mem4file").value.substring(12);
+          grabData(document.getElementById("mem4file").value.substring(12), "MEM");
 
-            timeFiles[0] = document.getElementById("time1file").value.substring(12);
-            grabData(document.getElementById("time1file").value.substring(12), "TIME");
-            timeFiles[1] = document.getElementById("time2file").value.substring(12);
-            grabData(document.getElementById("time2file").value.substring(12), "TIME");
-            timeFiles[2] = document.getElementById("time3file").value.substring(12);
-            grabData(document.getElementById("time3file").value.substring(12), "TIME");
-            timeFiles[3] = document.getElementById("time4file").value.substring(12);
-            grabData(document.getElementById("time4file").value.substring(12), "TIME");
-
-
-            document.getElementById("beginPayroll").hidden = false;
-            filesWorked = true;
-          }else{
-            document.getElementById("check3").src = "X.png";
-            document.getElementById("eventCheck").style.visibility = "hidden";
-            document.getElementById("eventTimes").style.visibility = "visible";
-            alert("Could not find some Time Clock Files");
-          }
+        }else if(introPayOnSignUps == false){
+          //Do nothing
         }else{
+          filesWorked = false;
           document.getElementById("check3").src = "X.png";
           document.getElementById("eventCheck").style.visibility = "hidden";
           document.getElementById("eventTimes").style.visibility = "visible";
+          try{
+            document.getElementById("outputOnBttn").id = "outputOffBttn";
+            document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+            document.getElementById("outputCheck").style.visibility = "hidden";
+            document.getElementById("outputTimes").style.visibility = "hidden";
+          }catch(err){}
+
           alert("Could not find some Member Log Files");
         }
+
+        if(includeTimeClock == true && document.getElementById("time1file").value.includes(".") && document.getElementById("time2file").value.includes(".") && document.getElementById("time3file").value.includes(".") && document.getElementById("time4files").value.includes(".")){
+          timeFiles[0] = document.getElementById("time1file").value.substring(12);
+          grabData(document.getElementById("time1file").value.substring(12), "TIME");
+          timeFiles[1] = document.getElementById("time2file").value.substring(12);
+          grabData(document.getElementById("time2file").value.substring(12), "TIME");
+          timeFiles[2] = document.getElementById("time3file").value.substring(12);
+          grabData(document.getElementById("time3file").value.substring(12), "TIME");
+          timeFiles[3] = document.getElementById("time4file").value.substring(12);
+          grabData(document.getElementById("time4file").value.substring(12), "TIME");
+
+        }else if(includeTimeClock == false){
+          //Do nothing
+        }else{
+          filesWorked = false;
+          document.getElementById("check3").src = "X.png";
+          document.getElementById("eventCheck").style.visibility = "hidden";
+          document.getElementById("eventTimes").style.visibility = "visible";
+          try{
+            document.getElementById("outputOnBttn").id = "outputOffBttn";
+            document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+            document.getElementById("outputCheck").style.visibility = "hidden";
+            document.getElementById("outputTimes").style.visibility = "hidden";
+          }catch(err){}
+
+          alert("Could not find some Time Clock Files");
+        }
+
       }else{
+        filesWorked = false;
         document.getElementById("check3").src = "X.png";
         document.getElementById("eventCheck").style.visibility = "hidden";
         document.getElementById("eventTimes").style.visibility = "visible";
+        try{
+          document.getElementById("outputOnBttn").id = "outputOffBttn";
+          document.getElementById("outputOffBttn").removeEventListener("click", openOutput);
+          document.getElementById("outputCheck").style.visibility = "hidden";
+          document.getElementById("outputTimes").style.visibility = "hidden";
+        }catch(err){}
+
         alert("Could not find some Booking Event Log Files");
       }
     }
+
     if(filesWorked){
       document.getElementById("eventCheck").style.visibility = "visible";
       document.getElementById("eventTimes").style.visibility = "hidden";
-      document.getElementById("output").className = "outputAble";
       document.getElementById("check3").src = "Check.png";
-      document.getElementById("outputBttn").click();
+      document.getElementById("outputOffBttn").id = "outputOnBttn";
+      document.getElementById("outputOnBttn").addEventListener("click", openOutput);
     }
   }
 
@@ -578,7 +815,7 @@ window.onload = function() {
           belTable.push([]);
           belTable[belTableCounter + belStart][0] = json[i][bookingInstructorI]; // instructor
           belTable[belTableCounter + belStart][1] = json[i][bookingClassNameI]; // detail
-          belTable[belTableCounter + belStart][2] = json[i][bookingLocationI]; // location
+          belTable[belTableCounter + belStart][2] = json[i][bookingLocationI].replace("Club Pilates ", ""); // location
           belTable[belTableCounter + belStart][3] = json[i][bookingDateI]; // date
           belTable[belTableCounter + belStart][4] = json[i][bookingTimeI]; // time
           belTable[belTableCounter + belStart][5] = json[i][bookingEventI]; // event
@@ -628,14 +865,10 @@ window.onload = function() {
         memTable[memTableCounter + memStart][1] = json[i][lastNameI];
         memTable[memTableCounter + memStart][2] = memTableStudioName;
         memTableCounter += 1;
-      }else if(json[i][0].includes("- Club")){
-        var startIndex = (json[i][0].indexOf("-") + 2);
-        var endIndex = (json[i][0].indexOf("(") - 1);
-        memTableStudioName = json[i][0].substring(startIndex, endIndex);
       }else if(json[i][1].includes("- Club")){
         var startIndex = (json[i][1].indexOf("-") + 2);
         var endIndex = (json[i][1].indexOf("(") - 1);
-        memTableStudioName = json[i][1].substring(startIndex, endIndex);
+        memTableStudioName = json[i][1].substring(startIndex, endIndex).replace("Club Pilates ", "");
       }
     }
     console.log("Member Event Log Table", memTable);
@@ -672,7 +905,7 @@ window.onload = function() {
       }else if(!isNaN(json[i][0]) && !json[i][0] == ""){
         timeTable.push([]);
         timeTable[timeTableCounter + timeStart][0] = json[i][nameI];
-        timeTable[timeTableCounter + timeStart][1] = json[i][locationI];
+        timeTable[timeTableCounter + timeStart][1] = json[i][locationI].replace("Club Pilates ", "");
         timeTable[timeTableCounter + timeStart][2] = parseFloat((json[i][totalMinI].substring(json[i][payRateI].lastIndexOf("$"))).replace(",", "")) / 60;
         timeTable[timeTableCounter + timeStart][3] = parseFloat(json[i][payRateI].substring(json[i][payRateI].lastIndexOf("$") + 1));
         timeTableCounter += 1;
@@ -849,7 +1082,7 @@ window.onload = function() {
   function addPay(classesArray){
     for(i = 0; i < classesArray.length; i++){
       for(j = 0; j < instructorPayTable.length; j++){
-        if(classesArray[i][1] == instructorPayTable[j][1] && classesArray[i][2] == instructorPayTable[j][0]){
+        if(instructorPayTable[j][1].includes(classesArray[i][1]) && classesArray[i][2] == instructorPayTable[j][0]){
           if(classesArray[i][0].includes("CP") || (classesArray[i][0].includes("Assessment") && ptaPay.includes("Group"))){
             classPay.push([]);
             classPay[classPayCount][0] = classesArray[i][0];
@@ -858,7 +1091,7 @@ window.onload = function() {
             classPay[classPayCount][3] = classesArray[i][3];
             classPay[classPayCount][4] = classesArray[i][4];
             classPay[classPayCount][5] = classesArray[i][5];
-            classPay[classPayCount][6] = instructorPayTable[j][(classPay[classPayCount][5]) + gcIndexLocation];
+            classPay[classPayCount][6] = parseFloat(instructorPayTable[j][(classPay[classPayCount][5]) + gcIndexLocation]);
             classPayCount = classPayCount + 1;
           }else if(classesArray[i][0].includes("Private") && !classesArray[i][0].includes("Assessment") || (classesArray[i][0].includes("Assessment") && ptaPay.includes("Private"))){
             classPay.push([]);
@@ -868,7 +1101,7 @@ window.onload = function() {
             classPay[classPayCount][3] = classesArray[i][3];
             classPay[classPayCount][4] = classesArray[i][4];
             classPay[classPayCount][5] = classesArray[i][5];
-            classPay[classPayCount][6] = instructorPayTable[j][(classPay[classPayCount][5]) + pIndexLocation];
+            classPay[classPayCount][6] = parseFloat(instructorPayTable[j][(classPay[classPayCount][5]) + pIndexLocation]);
             classPayCount = classPayCount + 1;
           }else if(classesArray[i][0].includes("Intro") || (classesArray[i][0].includes("Assessment") && ptaPay.includes("Intro"))){
             classPay.push([]);
@@ -879,12 +1112,12 @@ window.onload = function() {
             classPay[classPayCount][4] = classesArray[i][4];
             classPay[classPayCount][5] = classesArray[i][5];
             if(classesArray[i][0].includes("Assessment")){
-              classPay[classPayCount][6] = instructorPayTable[j][(classPay[classPayCount][5]) + iIndexLocation - 1];
+              classPay[classPayCount][6] = parseFloat(instructorPayTable[j][(classPay[classPayCount][5]) + iIndexLocation - 1]);
             }
             else if(!introPayOnSignUps){
-              classPay[classPayCount][6] = instructorPayTable[j][(classPay[classPayCount][5]) + iIndexLocation];
+              classPay[classPayCount][6] = parseFloat(instructorPayTable[j][(classPay[classPayCount][5]) + iIndexLocation]);
             }else{
-              classPay[classPayCount][6] = instructorPayTable[j][(classesArray[i][7]) + iIndexLocation];
+              classPay[classPayCount][6] = parseFloat(instructorPayTable[j][(classesArray[i][7]) + iIndexLocation]);
             }
             classPay[classPayCount][7] = classesArray[i][7];
             classPayCount = classPayCount + 1;
@@ -899,21 +1132,15 @@ window.onload = function() {
     if(classPay.length < classesArray.length){
       alert("Warning: Some classes were not logged. Make sure all instructors are inserted into the input excel file")
     }
-    // for(b = 0; b < classes.length; b++){
-    //   var found = false;
-    //   for(a = 0; a < classPay.length; a++){
-    //     if(classes[b][0] == classPay[a][0] && classes[b][1] == classPay[a][1] && classes[b][2] == classPay[a][2] && classes[b][3] == classPay[a][3] && classes[b][4] == classPay[a][4]){
-    //       found = true;
-    //     }
-    //   }
-    //   if(!found){
-    //     alert(classes[b])
-    //   }
-    // }
 
     var duplicatePayArray = classPay.splice(0);
+
     organize(duplicatePayArray);
   }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
 
 
   ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -997,8 +1224,8 @@ function findTotals(){
     instructorTotalLine = [instructorArray[z], 0, 0, 0, 0, 0, 0, 0, 0, 0 , 0, 0, 0, 0];
     //overallTotal.push([instructorArray[z], 0, 0, 0, 0, 0, 0, 0, 0, 0 ,0]);
     for(var j = 0; j < organizedTable.length; j++){
-      if(organizedTable[j][1] == instructorArray[z]){
-        if(organizedTable[j][0].includes("CP")){
+      if(instructorArray[z].includes(organizedTable[j][1])){
+        if(organizedTable[j][0].includes("CP") || organizedTable[j][0].includes("Assessment") && ptaPay.includes("Group")){
           instructorTotalLine[1] += 1;
           instructorTotalLine[2] += parseFloat(organizedTable[j][6]);
           instructorTotalLine[9] += 1;
@@ -1022,7 +1249,7 @@ function findTotals(){
 
           instructorTotalLine[13] += parseFloat(organizedTable[j][6]);
           totalByTypeO[13] += parseFloat(organizedTable[j][6]);
-        }else if(organizedTable[j][0].includes("Semi")){
+        }else if(organizedTable[j][0].includes("Semi") || organizedTable[j][1].includes("Assessment") && ptaPay.includes("Private")){
           instructorTotalLine[5] += 1;
           instructorTotalLine[6] += parseFloat(organizedTable[j][6]);
           instructorTotalLine[9] += 1;
@@ -1034,7 +1261,7 @@ function findTotals(){
 
           instructorTotalLine[13] += parseFloat(organizedTable[j][6]);
           totalByTypeO[13] += parseFloat(organizedTable[j][6]);
-        }else if(organizedTable[j][0].includes("Intro")){
+        }else if(organizedTable[j][0].includes("Intro") || organizedTable[j][1].includes("Assessment") && ptaPay.includes("Intro")){
           instructorTotalLine[7] += 1;
           instructorTotalLine[8] += parseFloat(organizedTable[j][6]);
           instructorTotalLine[9] += 1;
@@ -1075,7 +1302,7 @@ function findTotals(){
       for(var j = 0; j < organizedTable.length; j++){
         //alert(organizedTable[j][1] + "-" + instructorArray[z] + "---" + organizedTable[j][2] + "-" + instructorArray[i]);
         if(organizedTable[j][1] == instructorArray[z] && organizedTable[j][2] == studiosArray[i]){
-          if(organizedTable[j][0].includes("CP")){
+          if(organizedTable[j][0].includes("CP") || organizedTable[j][1].includes("Assessment") && ptaPay.includes("Group")){
             instTotalPayLine[1] += 1;
             instTotalPayLine[2] += parseFloat(organizedTable[j][6]);
             instTotalPayLine[9] += 1;
@@ -1099,7 +1326,7 @@ function findTotals(){
 
             instTotalPayLine[13] += parseFloat(organizedTable[j][6]);
             totalByTypeM[13] += parseFloat(organizedTable[j][6]);
-          }else if(organizedTable[j][0].includes("Semi")){
+          }else if(organizedTable[j][0].includes("Semi") || organizedTable[j][1].includes("Assessment") && ptaPay.includes("Private")){
             instTotalPayLine[5] += 1;
             instTotalPayLine[6] += parseFloat(organizedTable[j][6]);
             instTotalPayLine[9] += 1;
@@ -1111,7 +1338,7 @@ function findTotals(){
 
             instTotalPayLine[13] += parseFloat(organizedTable[j][6]);
             totalByTypeM[13] += parseFloat(organizedTable[j][6]);
-          }else if(organizedTable[j][0].includes("Intro")){
+          }else if(organizedTable[j][0].includes("Intro") || organizedTable[j][1].includes("Assessment") && ptaPay.includes("Intro")){
             instTotalPayLine[7] += 1;
             instTotalPayLine[8] += parseFloat(organizedTable[j][6]);
             instTotalPayLine[9] += 1;
@@ -1162,28 +1389,56 @@ function findTotals(){
 
 var indInsArr = [];
 
+var summaryTabOutput = [];
+
+var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+var sumCellClassTypeArray = [];
+
+var sumCellOverallArray = [];
+
+var tabReferences = [];
+
 function writeExcel(){
-  var name = "London";
+  var name = "Payroll";
   var wb = XLSX.utils.book_new();
   wb.Props = {
-    Title: "" + name + "Payroll" + Date.now(),
+    Title: "" + name + "Payroll",
     Subject: "Test",
     Author: "Scott Smith",
     CreatedDate: Date.now()
   };
-  wb.SheetNames.push("Overall");
-  var ws_data = createExcelArray()
-  //var ws_data = [["Scott", "Smith"],["Joe", "Schmo"]];
+  wb.SheetNames.push("Detail");
+  var ws_data = createExcelArray();
   var ws = XLSX.utils.aoa_to_sheet(ws_data);
-  wb.Sheets["Overall"] = ws;
+  for(var i = 0; i < sumCellClassTypeArray.length; i++){
+    addSumFormulasInd(ws, sumCellClassTypeArray[i][0], sumCellClassTypeArray[i][1], sumCellClassTypeArray[i][2]);
+  }
+  for(var j = 0; j < sumCellOverallArray.length; j++){
+    addSumFormulasOverall(ws, sumCellOverallArray[j][0], sumCellOverallArray[j][1]);
+  }
+
+  //ws["!margins"]={left:0.1,right:0.1,top:0.4,bottom:0.7,header:0.3,footer:0.3}
+  wb.Sheets["Detail"] = ws;
+
+  wb.SheetNames.push("Summary");
+  var summ = XLSX.utils.aoa_to_sheet(summaryTabOutput);
+  wb.Sheets["Summary"] = summ;
+
   for(var i = 0; i < indInsArr.length; i++){
     wb.SheetNames.push(indInsArr[i][0][0]);
-    var instructorData = XLSX.utils.aoa_to_sheet(indInsArr[i]);
+    var instructorData = XLSX.utils.aoa_to_sheet(indInsArr[i].slice(1));
+
+    for(var j = 0; j < tabReferences.length; j++){
+      if(indInsArr[i][0][0].includes(tabReferences[j][0])){
+        addTabReference(instructorData, tabReferences[j][1], tabReferences[j][2]);
+      }
+    }
     wb.Sheets[indInsArr[i][0][0]] = instructorData;
   }
   //var wbout = XLSX.write(wb, {bookType:'xlsx',  type: 'binary'});
 
-  var finalExcel = XLSX.writeFile(wb, "" + name + "Payroll" + ".xlsx");
+  var finalExcel = XLSX.writeFile(wb, "" + name + "Output" + ".xlsx");
 
   // function s2ab(s) {
   //
@@ -1194,6 +1449,32 @@ function writeExcel(){
   // }
 
   //saveAs(new Blob([s2ab(wbout)]), type, 'Payroll4-10-19.xlsx');
+}
+
+function addSumFormulasInd(worksheet, col, row, numClasses){
+  var endRow = row;
+  if(numClasses == 0){
+    endRow = endRow - 1;
+  }
+  var logic_test = "sum("+ col+(endRow-numClasses) +":" + col+(row-1) +") > - 1";
+  var trueVar = "sum("+ col+(endRow-numClasses) +":" + col+(row-1) +")";
+  var falseVar = "0";
+  var functionVar = "if(" + logic_test + "," + trueVar + "," + falseVar + ")";
+  worksheet[col+row] = {t : 'n', f : trueVar}
+}
+
+function addSumFormulasOverall(worksheet, totalCell, contributingCells){
+  var sumString = "";
+  for(var i = 0; i < contributingCells.length; i++){
+    sumString += ("+" + contributingCells[i]);
+  }
+  sumString = sumString.substr(1);
+
+  worksheet[totalCell] = {t : 'n', f : "sum("+ sumString +")"}
+}
+
+function addTabReference(worksheet, reference, newCell){
+  worksheet[newCell] = {t:'n', f:"Detail!" + reference + ":" + reference}
 }
 
 function createExcelArray(){
@@ -1208,50 +1489,71 @@ function createExcelArray(){
     }
   }
   array.push([studiosStr]);
-  array.push([belPayPeriods[0]]);
+  array.push(["Pay Period: " + belPayPeriods[0]]);
   array.push([]);
+
+  summaryTabOutput.push([studiosStr]);
+  summaryTabOutput.push(["Pay Period: " + belPayPeriods[0]]);
+  summaryTabOutput.push([]);
+  summaryTabOutput.push([]);
 
   indCount = 0;
 
   for(var i = 0; i < instructorArray.length; i++){
+
+    sumIndCells = [];
+
     var instructorClasses = 0;
     var instructorPay = 0;
     array.push([instructorArray[i]]);
     array.push([]);
     array.push(["Group Classes"]);
-    array.push(["Group Class", "Location", "Date", "Time", "Number of Students", "Amount Owed"]);
+    array.push(["Group Class", "Location", "Date", "Time", "Class Size", "Payment"]);
 
     indInsArr.push([]);
+
+    indInsArr[indCount].push([instructorArray[i]]);
+    indInsArr[indCount].push([studiosStr]);
+    indInsArr[indCount].push(["Pay Period: " + belPayPeriods[0]]);
+    indInsArr[indCount].push([]);
+    indInsArr[indCount].push([]);
+
     indInsArr[indCount].push([instructorArray[i]]);
     indInsArr[indCount].push([]);
     indInsArr[indCount].push(["Group Classes"]);
-    indInsArr[indCount].push(["Group Class", "Location", "Date", "Time", "Number of Students", "Amount Owed"]);
+    indInsArr[indCount].push(["Group Class", "Location", "Date", "Time", "Class Size", "Payment"]);
 
     var groupClassCount = 0;
     var groupPayTotal = 0;
     for(var x = 0 ; x < organizedTable.length; x++){
       if(organizedTable[x][1] == (instructorArray[i])){
-        if(organizedTable[x][0].includes("CP")){
+        if(organizedTable[x][0].includes("CP") || organizedTable[j][1].includes("Assessment") && ptaPay.includes("Group")){
           groupClassCount++;
           groupPayTotal += parseFloat(organizedTable[x][6]);
           array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
           indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
+          tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
+
         }
       }
     }
-    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", groupClassCount, groupPayTotal]);
+    array.push(["Totals", "", "", "", groupClassCount, groupPayTotal]);
 
-    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", groupClassCount, groupPayTotal]);
+    sumCellClassTypeArray.push([alphabet.charAt(5), array.length, groupClassCount]);
+    sumIndCells.push(alphabet.charAt(5) + array.length);
+
+    indInsArr[indCount].push(["Totals", "", "", "", groupClassCount, groupPayTotal]);
+    tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
 
     array.push([]);
     array.push(["Private Classes"]);
-    array.push(["Private Class", "Location", "Date", "Time", "Number of Students", "Amount Owed"]);
+    array.push(["Private Class", "Location", "Date", "Time", "Class Size", "Payment"]);
 
     indInsArr[indCount].push([]);
     indInsArr[indCount].push(["Private Classes"]);
-    indInsArr[indCount].push(["Private Class", "Location", "Date", "Time", "Number of Students", "Amount Owed"]);
+    indInsArr[indCount].push(["Private Class", "Location", "Date", "Time", "Class Size", "Payment"]);
 
     var privateClassCount = 0;
     var privatePayTotal = 0;
@@ -1264,52 +1566,64 @@ function createExcelArray(){
 
           indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5],  organizedTable[x][6] ]);
 
+          tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
         }
       }
     }
-    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", privateClassCount, privatePayTotal]);
+    array.push(["Totals", "", "", "", privateClassCount, privatePayTotal]);
 
-    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", privateClassCount, privatePayTotal]);
+    sumCellClassTypeArray.push([alphabet.charAt(5), array.length, privateClassCount]);
+    sumIndCells.push(alphabet.charAt(5) + array.length);
+
+    indInsArr[indCount].push(["Totals", "", "", "", privateClassCount, privatePayTotal]);
+
+    tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
 
     array.push([]);
     array.push(["Semi-Private Classes"]);
-    array.push(["Semi-Private Class", "Location", "Date", "Time", "Number of Students", "Amount Owed"]);
+    array.push(["Semi-Private Class", "Location", "Date", "Time", "Class Size", "Payment"]);
 
     indInsArr[indCount].push([]);
     indInsArr[indCount].push(["Semi-Private Classes"]);
-    indInsArr[indCount].push(["Semi-Private Class", "Location", "Date", "Time", "Number of Students", "Amount Owed"]);
+    indInsArr[indCount].push(["Semi-Private Class", "Location", "Date", "Time", "Class Size", "Payment"]);
 
     var semiClassCount = 0;
     var semiPayTotal = 0;
     for(var x = 0 ; x < organizedTable.length; x++){
       if(organizedTable[x][1] == (instructorArray[i])){
-        if(organizedTable[x][0].includes("Semi-Private")){
+        if(organizedTable[x][0].includes("Semi-Private") || organizedTable[j][1].includes("Assessment") && ptaPay.includes("Private")){
           semiClassCount++;
           semiPayTotal += parseFloat(organizedTable[x][6]);
-          array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5],organizedTable[x][6] ]);
+          array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
           indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5], organizedTable[x][6] ]);
 
+          tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
         }
       }
     }
-    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", semiClassCount, semiPayTotal]);
+    array.push(["Totals ", "", "", "", semiClassCount, semiPayTotal]);
 
-    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", semiClassCount, semiPayTotal]);
+    sumCellClassTypeArray.push([alphabet.charAt(5), array.length, semiClassCount]);
+    sumIndCells.push(alphabet.charAt(5) + array.length);
+
+    indInsArr[indCount].push(["Totals", "", "", "", semiClassCount, semiPayTotal]);
+
+    tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
 
     array.push([]);
     array.push(["Intro Classes"]);
-    array.push(["Intro Class", "Location", "Date", "Time", "Number of Students", "Amount Owed"]);
+    array.push(["Intro Class", "Location", "Date", "Time", "Class Size", "Payment"]);
 
     indInsArr[indCount].push([]);
     indInsArr[indCount].push(["Intro Classes"]);
-    indInsArr[indCount].push(["Intro Class", "Location", "Date", "Time", "Number of Students", "Amount Owed"]);
+    indInsArr[indCount].push(["Intro Class", "Location", "Date", "Time", "Class Size", "Payment"]);
 
     var introClassCount = 0;
     var introPayTotal = 0;
     for(var x = 0 ; x < organizedTable.length; x++){
       if(organizedTable[x][1] == (instructorArray[i])){
-        if(organizedTable[x][0].includes("Intro")){
+        if(organizedTable[x][0].includes("Intro") || organizedTable[j][1].includes("Assessment") && ptaPay.includes("Intro")){
           introClassCount++;
           introPayTotal += parseFloat(organizedTable[x][6]);
           if(!introPayOnSignUps){
@@ -1317,20 +1631,30 @@ function createExcelArray(){
 
             indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], organizedTable[x][5],  organizedTable[x][6] ]);
 
+            tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
+
           }else{
             array.push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], "(" + organizedTable[x][7] + "/" + organizedTable[x][5] + ")" ,  organizedTable[x][6] ]);
 
             indInsArr[indCount].push([ organizedTable[x][0], organizedTable[x][2],  organizedTable[x][3], organizedTable[x][4], "(" + organizedTable[x][7] + "/" + organizedTable[x][5] + ")" ,  organizedTable[x][6] ]);
+
+            tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
 
           }
         }
       }
     }
 
-    array.push(["Totals", "(Number of Classes-Total Pay)", "", "", introClassCount, introPayTotal]);
-    array.push([]);
+    array.push(["Totals", "", "", "", introClassCount, introPayTotal]);
 
-    indInsArr[indCount].push(["Totals", "(Number of Classes-Total Pay)", "", "", introClassCount, introPayTotal]);
+    sumCellClassTypeArray.push([alphabet.charAt(5), array.length, introClassCount]);
+    sumIndCells.push(alphabet.charAt(5) + array.length);
+
+    indInsArr[indCount].push(["Totals", "", "", "", introClassCount, introPayTotal]);
+
+    tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
+
+    array.push([]);
     indInsArr[indCount].push([]);
 
 
@@ -1338,31 +1662,42 @@ function createExcelArray(){
 
     var timePayTotal = 0;
 
-    array.push(["Time Clock"]);
-    indInsArr[indCount].push(["Time Clock"]);
+    if(includeTimeClock){
 
-    for(var p = 0; p < timeTable.length; p++){
-      if(instructorArray[i] == timeTable[p][0]){
-        array.push([instructorArray[i] + " Time Clock Totals", "(Hours - Total Pay)", "", "", timeTable[p][2], timeTable[p][3] ]);
-        indInsArr[indCount].push([instructorArray[i] + " Time Clock Totals", "(Hours - Total Pay)", "", "",  timeTable[p][2], timeTable[p][3] ]);
-        timePayTotal = timeTable[p][3];
-        foundTimeClockInst = true;
+      array.push(["Time Clock"]);
+      indInsArr[indCount].push(["Time Clock"]);
+
+      for(var p = 0; p < timeTable.length; p++){
+        if(instructorArray[i] == timeTable[p][0]){
+          array.push([instructorArray[i] + " Time Clock Totals", "(Hours - Total Pay)", "", "", timeTable[p][2], timeTable[p][3] ]);
+          indInsArr[indCount].push([instructorArray[i] + " Time Clock Totals", "(Hours - Total Pay)", "", "",  timeTable[p][2], timeTable[p][3] ]);
+          timePayTotal = timeTable[p][3];
+          foundTimeClockInst = true;
+        }
       }
-    }
 
-    if(!foundTimeClockInst){
-      array.push([instructorArray[i] + " Time Clock Totals", "(Hours - Total Pay)", "", "", 0, 0 ]);
-      indInsArr[indCount].push([instructorArray[i] + " Time Clock Totals", "(Hours - Total Pay)", "", "",  0, 0 ]);
+      if(!foundTimeClockInst){
+        array.push([instructorArray[i] + " Time Clock Totals", "(Hours - Total Pay)", "", "", 0, 0 ]);
+        indInsArr[indCount].push([instructorArray[i] + " Time Clock Totals", "(Hours - Total Pay)", "", "",  0, 0 ]);
+      }
+
+      sumIndCells.push(alphabet.charAt(5) + array.length);
+      tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
+
     }
 
     instructorClasses = groupClassCount + privateClassCount + semiClassCount + introClassCount;
     instructorPay = groupPayTotal + privatePayTotal + semiPayTotal + introPayTotal + timePayTotal;
 
     array.push([]);
-    array.push([instructorArray[i] + " Totals", "(Number of Classes-Total Pay)", "", "", instructorClasses, instructorPay])
+    array.push([instructorArray[i] + " Totals", "", "", "", instructorClasses, instructorPay]);
+
+    sumCellOverallArray.push([alphabet.charAt(5) + array.length, sumIndCells]);
 
     indInsArr[indCount].push([]);
-    indInsArr[indCount].push([instructorArray[i] + " Totals", "(Number of Classes-Total Pay)", "", "", instructorClasses, instructorPay])
+    indInsArr[indCount].push([instructorArray[i] + " Totals", "", "", "", instructorClasses, instructorPay]);
+
+    tabReferences.push([instructorArray[i], alphabet.charAt(5) + array.length, alphabet.charAt(5) + (indInsArr[indCount].length-1)]);
 
     array.push([]);
     array.push([]);
@@ -1372,41 +1707,103 @@ function createExcelArray(){
   }
 
   if(outputOverall){
-    array.push(["Overall Totals"]);
-    array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
-    for(var a = 0; a < overallTotal.length; a++){
-      array.push(overallTotal[a]);
-    }
-    array.push(totalTotals[0]);
+    //array.push(["Overall Totals"]);
+    summaryTabOutput.push(["Overall Totals"]);
+    if(includeTimeClock){
+      //array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
+      summaryTabOutput.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
+      for(var a = 0; a < overallTotal.length; a++){
+        //array.push(overallTotal[a]);
+        summaryTabOutput.push(overallTotal[a]);
+      }
 
-    array.push([]);
+      //array.push(totalTotals[0]);
+      summaryTabOutput.push(totalTotals[0]);
+
+    }else{
+      //array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+      summaryTabOutput.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+      for(var a = 0; a < overallTotal.length; a++){
+        //array.push(overallTotal[a].slice(0,overallTotal[a].length-3));
+        summaryTabOutput.push(overallTotal[a].slice(0,overallTotal[a].length-3));
+      }
+
+      //array.push(totalTotals[0].slice(0,totalTotals[0].length-3));
+      summaryTabOutput.push(totalTotals[0].slice(0,totalTotals[0].length-3));
+    }
+
+
+    //array.push([]);
+    summaryTabOutput.push([]);
 
     var totalsTracker = 1;
   }
 
   if(outputByStudio && studiosArray.length > 1){
-    array.push([totalsByStudio[0][totalsByStudio[0].length-1]]);
-    array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
-    for(var b = 0; b < totalsByStudio.length; b++){
-      var insertionTotalsArray = [];
-      for(var w = 0; w < totalsByStudio[b].length-1; w ++){
-        insertionTotalsArray.push(totalsByStudio[b][w]);
+    //array.push([totalsByStudio[0][totalsByStudio[0].length-1]]);
+    summaryTabOutput.push([totalsByStudio[0][totalsByStudio[0].length-1]]);
+
+    if(includeTimeClock){
+      //array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
+      summaryTabOutput.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
+      for(var b = 0; b < totalsByStudio.length; b++){
+        var insertionTotalsArray = [];
+        for(var w = 0; w < totalsByStudio[b].length-1; w ++){
+          insertionTotalsArray.push(totalsByStudio[b][w]);
+        }
+        var studioNameIndex = totalsByStudio[b].length - 1;
+        //array.push(insertionTotalsArray);
+        summaryTabOutput.push(insertionTotalsArray);
+        if(b > 0 && totalsByStudio[b][studioNameIndex] != totalsByStudio[b-1][studioNameIndex]){
+          //array.push(totalTotals[totalsTracker]);
+          //array.push([]);
+          //array.push([totalsByStudio[b][studioNameIndex]]);
+          //array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
+
+          summaryTabOutput.push(totalTotals[totalsTracker]);
+          summaryTabOutput.push([]);
+          summaryTabOutput.push([totalsByStudio[b][studioNameIndex]]);
+          summaryTabOutput.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
+
+          totalsTracker += 1;
+        }
       }
-      var studioNameIndex = totalsByStudio[b].length - 1;
-      array.push(insertionTotalsArray);
-      if(b > 0 && totalsByStudio[b][studioNameIndex] != totalsByStudio[b-1][studioNameIndex]){
-        array.push(totalTotals[totalsTracker]);
-        array.push([]);
-        array.push([totalsByStudio[b][studioNameIndex]]);
-        array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay", "Time Clock Pay Rate", "Time Clock Hours", "Total Pay"]);
-        totalsTracker += 1;
+      //array.push(totalTotals[totalsTracker]);
+      summaryTabOutput.push(totalTotals[totalsTracker]);
+
+    }else{
+      //array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+      summaryTabOutput.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+      for(var b = 0; b < totalsByStudio.length; b++){
+        var insertionTotalsArray = [];
+        for(var w = 0; w < totalsByStudio[b].length-4; w ++){
+          insertionTotalsArray.push(totalsByStudio[b][w]);
+        }
+        var studioNameIndex = totalsByStudio[b].length - 1;
+        //array.push(insertionTotalsArray);
+        summaryTabOutput.push(insertionTotalsArray);
+        if(b > 0 && totalsByStudio[b][studioNameIndex] != totalsByStudio[b-1][studioNameIndex]){
+          //array.push(totalTotals[totalsTracker].slice(0,totalTotals[totalsTracker].length-3));
+          //array.push([]);
+          //array.push([totalsByStudio[b][studioNameIndex]]);
+          //array.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+
+          summaryTabOutput.push(totalTotals[totalsTracker].slice(0,totalTotals[totalsTracker].length-3));
+          summaryTabOutput.push([]);
+          summaryTabOutput.push([totalsByStudio[b][studioNameIndex]]);
+          summaryTabOutput.push(["Employee", "Group Class Amount", "Group Class Pay", "Private Class Amount", "Private Class Pay", "Semi-Private Class Amount", "Semi-Private Class Pay", "Intro Class Amount", "Intro Class Pay", "All Class Amount", "All Class Pay"]);
+
+          totalsTracker += 1;
+        }
       }
+      //array.push(totalTotals[totalsTracker].slice(0,totalTotals[totalsTracker].length-3));
+      summaryTabOutput.push(totalTotals[totalsTracker].slice(0,totalTotals[totalsTracker].length-3));
     }
-    array.push(totalTotals[totalsTracker]);
+
   }
+
   return array;
 }
-
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////
